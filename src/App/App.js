@@ -133,7 +133,7 @@ class App extends Component {
                     component={AddFolder}
                 />
                 <Route 
-                    path='add-note'
+                    path='/add-note'
                     component={AddNote}
                 />
 
