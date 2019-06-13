@@ -22,7 +22,7 @@ function postFolder(folder, callback) {
     })
     .then(data => {
     //can't seem to get submission to send us back to home page
-        this.props.history.push('/')
+        // this.props.history.push('/')
         callback(folder)
         
         

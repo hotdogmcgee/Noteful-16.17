@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
@@ -13,7 +13,7 @@ function deleteNote(noteId, callback) {
       'content-type': 'application-json'
     }
   })
-  .then(res =>{
+  .then(res => {
     if (!res.ok) {
       return res.json().then(error => {
         throw error
@@ -22,7 +22,10 @@ function deleteNote(noteId, callback) {
     return res.json()
   })
   .then(data => {
+    this.props.history.push('/')
     callback(noteId)
+    
+    
   })
   .catch(error => {
     console.log(error)
@@ -30,7 +33,7 @@ function deleteNote(noteId, callback) {
 
 }
 
-export default function Note(props) {
+function Note(props) {
   return (
   <NoteContext.Consumer>
     {(context) => (
@@ -64,3 +67,5 @@ export default function Note(props) {
   </NoteContext.Consumer>
   )
 }
+
+export default withRouter(Note)

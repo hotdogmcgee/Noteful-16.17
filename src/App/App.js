@@ -34,9 +34,11 @@ class App extends Component {
         console.log('delete')
         const newNotes = this.state.notes.filter(item => 
             noteId !== item.id)
+
         this.setState({
             notes: newNotes
         })
+        
     }
 
     handleAddFolder = folder => {
