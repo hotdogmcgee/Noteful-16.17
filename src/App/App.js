@@ -101,16 +101,13 @@ class App extends Component {
             <>
                 {['/', '/folder/:folderId'].map(path => (
                     <Route
-                        exact
-                        key={path}
-                        path={path}
+                        exact key={path} path={path}
                         component={NoteListNav}
                     />
                 ))}
                 <Route path="/note/:noteId" component={NotePageNav}/>
                 <Route path="/add-folder" component={NoteListNav} />
                 <Route path="/add-note" component={NotePageNav} />
-                
             </>
         );
     }
@@ -120,9 +117,7 @@ class App extends Component {
             <>
                 {['/', '/folder/:folderId'].map(path => (
                     <Route
-                        exact
-                        key={path}
-                        path={path}
+                        exact key={path} path={path}
                         component={NoteListMain}        
                     />
                 ))}

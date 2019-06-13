@@ -2,33 +2,6 @@ import React from 'react'
 import './AddFolder.css'
 import NoteContext from '../NoteContext'
 import ValidationError from '../ValidationError'
-// import { withRouter } from 'react-router-dom'
-
-function postFolder(folder, callback) {
-    const foldersENDPOINT = "http://localhost:9090/folders"
-    //FOLDERS API FETCH
-    fetch(foldersENDPOINT, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(folder)
-    })
-    .then(res => {
-        if (!res.ok) {
-            throw new Error(res.status)
-        }
-        return res.json()
-    })
-    .then(data => {
-    //can't seem to get submission to send us back to home page
-        // this.props.history.push('/')
-        callback(folder)
-        
-        
-    })
-    .catch(error => console.log(error))
-}
 
 class AddFolder extends React.Component {
     constructor(props) {
@@ -112,6 +85,29 @@ class AddFolder extends React.Component {
     
     }
     
+    ostFolder(folder, callback) {
+      const foldersENDPOINT = "http://localhost:9090/folders"
+      //FOLDERS API FETCH
+      fetch(foldersENDPOINT, {
+          method: 'POST',
+          headers: {
+              'content-type': 'application/json'
+          },
+          body: JSON.stringify(folder)
+      })
+      .then(res => {
+          if (!res.ok) {
+              throw new Error(res.status)
+          }
+          return res.json()
+      })
+      .then(data => {
+          this.props.history.push('/')
+          callback(folder)
+      })
+      .catch(error => console.log(error))
+  }
+
     handleSubmit(e) {
         e.preventDefault();
         const folder = {
@@ -120,7 +116,7 @@ class AddFolder extends React.Component {
         }
         console.log(folder)
 
-        postFolder(folder, this.context.handleAddFolder)
+        this.postFolder(folder, this.context.handleAddFolder)
     }
 
     render() {

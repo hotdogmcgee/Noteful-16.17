@@ -5,9 +5,7 @@ import './NotePageNav.css'
 import NoteContext from '../NoteContext';
 import {findNote, findFolder} from '../notes-helpers';
 
-//when trying to use context, I had difficulty seeing how to take variables from App.js and re-apply in here
 export default class NotePageNav extends React.Component {
-
   static defaultProps = {
     history: {
       goBack: () => { }

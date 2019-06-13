@@ -3,27 +3,6 @@ import './AddNote.css'
 import NoteContext from '../NoteContext'
 import ValidationError from '../ValidationError'
 
-function postnote(note, callback) {
-    const notesENDPOINT = "http://localhost:9090/notes"
-    //notes API FETCH
-    fetch(notesENDPOINT, {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-        },
-        body: JSON.stringify(note)
-    })
-    .then(res => {
-        if (!res.ok) {
-            throw new Error(res.status)
-        }
-        return res.json()
-    })
-    .then(data => {
-        callback(note)
-    })
-    .catch(error => console.log(error))
-}
 
 export default class AddNote extends React.Component {
     constructor(props) {
@@ -171,8 +150,28 @@ export default class AddNote extends React.Component {
         }, this.formValid );
     }
 
-
-
+    postnote(note, callback) {
+        const notesENDPOINT = "http://localhost:9090/notes"
+        //notes API FETCH
+        fetch(notesENDPOINT, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json',
+            },
+            body: JSON.stringify(note)
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error(res.status)
+            }
+            return res.json()
+        })
+        .then(data => {
+            this.props.history.push('/')
+            callback(note)
+        })
+        .catch(error => console.log(error))
+    }
     
     handleSubmit(e) {
         e.preventDefault();
@@ -183,18 +182,15 @@ export default class AddNote extends React.Component {
             modified: this.modifiedInput.current.value,
             folderId: this.folderIdInput.current.value
         }
-        console.log(note)
 
-        postnote(note, this.context.handleAddNote)
+        this.postnote(note, this.context.handleAddNote)
     }
 
     render() {
 
         const { nameValid, idValid, contentValid, modifiedValid, validationMessages } = this.state
         const { folders } = this.context;
-        //i can't seem to get the ref value to add to a folder, folderId is grabbing item.name
         const folderChoices = folders.map((item, key) => 
-            // <option key={key} value={item.id}>{item.name}</option>
             <option key={key} value={item.id}>{item.name}</option>)
         return (
             
