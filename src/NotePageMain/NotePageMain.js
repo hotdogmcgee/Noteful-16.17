@@ -2,7 +2,9 @@ import React from 'react'
 import Note from '../Note/Note'
 import './NotePageMain.css'
 import NoteContext from '../NoteContext';
+import NotePageError from '../NotePageError'
 import { findNote } from '../notes-helpers'
+import propTypes from 'prop-types'
 
 export default class NotePageMain extends React.Component {
 
@@ -21,9 +23,12 @@ export default class NotePageMain extends React.Component {
 
   render() {
     const { noteId } = this.props.match.params;
-    const note = findNote(this.context.notes, noteId);
+    //content being undefined is causing problems.  Can't seem to get error boundary to work correctly.
+    const note = findNote(this.context.notes, noteId)
     return (
+      
       <section className='NotePageMain'>
+        {/* <NotePageError> */}
         <Note
           id={note.id}
           name={note.name}
@@ -34,8 +39,18 @@ export default class NotePageMain extends React.Component {
             <p key={i}>{para}</p>
           )}
         </div>
+        {/* </NotePageError> */}
       </section>
     )
   }
+}
+
+NotePageMain.propTypes = {
+  note: propTypes.shape({
+    content: propTypes.string,
+    id: propTypes.string,
+    modified: propTypes.string
+  }),
+  match: propTypes.object
 }
 

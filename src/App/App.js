@@ -10,6 +10,7 @@ import NoteContext from '../NoteContext'
 import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
 import './App.css';
+import NotePageError from '../NotePageError';
 
 class App extends Component {
     state = {
@@ -115,16 +116,23 @@ class App extends Component {
     renderMainRoutes() {
         return (
             <>
+                
                 {['/', '/folder/:folderId'].map(path => (
+                    
                     <Route
                         exact key={path} path={path}
                         component={NoteListMain}        
                     />
+                    
                 ))}
+                
+                <NotePageError>
                 <Route
                     path="/note/:noteId"
                     component={NotePageMain}
                 />
+                </NotePageError>
+                
                 <Route 
                     path='/add-folder'
                     component={AddFolder}
@@ -149,14 +157,17 @@ class App extends Component {
         return (
             <div className="App">
                 <NoteContext.Provider value={contextValue} >
-                    <nav className="App__nav">{this.renderNavRoutes()}</nav>
+                    
+                        <nav className="App__nav">{this.renderNavRoutes()}</nav>
                     <header className="App__header">
                         <h1>
                             <Link to="/">Noteful</Link>{' '}
                             <FontAwesomeIcon icon="check-double" />
                         </h1>
                     </header>
+                    
                     <main className="App__main">{this.renderMainRoutes()}</main>
+                    
                 </NoteContext.Provider>
             </div>
         );

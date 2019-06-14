@@ -85,7 +85,7 @@ class AddFolder extends React.Component {
     
     }
     
-    ostFolder(folder, callback) {
+    postFolder(folder, callback) {
       const foldersENDPOINT = "http://localhost:9090/folders"
       //FOLDERS API FETCH
       fetch(foldersENDPOINT, {

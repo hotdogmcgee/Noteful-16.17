@@ -4,10 +4,19 @@ import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
 import NoteContext from '../NoteContext'
+import propTypes from 'prop-types'
 
 
 
 class Note extends React.Component {
+
+  static defaultProps = {
+    note: {
+      content: '',
+      id: '',
+      modified: ''
+    }, 
+  }
 
   deleteNote(noteId, callback) {
     const noteENDPOINT = "http://localhost:9090/notes"
@@ -71,5 +80,14 @@ class Note extends React.Component {
     )
   }
 }
+
+Note.propTypes = {
+  note: propTypes.shape({
+    content: propTypes.string,
+    id: propTypes.string,
+    modified: propTypes.string
+  })
+};
+
 
 export default withRouter(Note)
