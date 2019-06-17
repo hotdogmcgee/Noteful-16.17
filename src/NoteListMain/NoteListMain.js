@@ -7,6 +7,7 @@ import './NoteListMain.css'
 import { getNotesForFolder } from '../notes-helpers'
 import NoteContext from '../NoteContext';
 import propTypes from 'prop-types'
+import URLError from '../URLError'
 
 export default class NoteListMain extends React.Component {
 
@@ -20,9 +21,19 @@ export default class NoteListMain extends React.Component {
   static contextType = NoteContext
 
   render() {
-    const { notes } = this.context
+    const { notes, folders } = this.context
     const {folderId} = this.props.match.params;
     const notesForFolder = getNotesForFolder(notes, folderId)
+    if (folderId !== folders.find(folder => folder.id === folderId)) {
+     
+      console.log(folderId)
+      const message='This folder does not exist'
+      return <URLError message={message}/>
+    } 
+    // else {
+    //   console.log('false')
+    // }
+    
   return (
     <section className='NoteListMain'>
       <ul>

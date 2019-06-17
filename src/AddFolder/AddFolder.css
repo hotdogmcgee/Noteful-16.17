@@ -1,3 +1,7 @@
 * {
     color: green
 }
+
+form > * {
+    padding: 5px
+}

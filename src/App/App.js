@@ -126,12 +126,12 @@ class App extends Component {
                     
                 ))}
                 
-                <NotePageError>
+                {/* <NotePageError> */}
                 <Route
                     path="/note/:noteId"
                     component={NotePageMain}
                 />
-                </NotePageError>
+                {/* </NotePageError> */}
                 
                 <Route 
                     path='/add-folder'

@@ -4,6 +4,7 @@ import NoteContext from '../NoteContext'
 import ValidationError from '../ValidationError'
 
 class AddFolder extends React.Component {
+  //do I need props here?
     constructor(props) {
         super(props)
         this.nameInput = React.createRef()
@@ -12,6 +13,7 @@ class AddFolder extends React.Component {
             formValid: false,
             nameValid: false,
             idValid: false,
+            yourFlag: false,
             validationMessages: {
                 name: '',
                 id: ''
@@ -114,12 +116,24 @@ class AddFolder extends React.Component {
             name: this.nameInput.current.value,
             id: this.numberInput.current.value
         }
-        console.log(folder)
 
-        this.postFolder(folder, this.context.handleAddFolder)
+        if ((!folder.name && !folder.id) || (folder.name.length < 3 || folder.id.length < 3)) {
+            this.setState({
+              yourFlag: true
+              
+            })
+            
+        } else {
+          console.log(folder)
+
+          this.postFolder(folder, this.context.handleAddFolder)
+        }
+        
     }
 
     render() {
+
+
         return (
             
             <form onSubmit={e => this.handleSubmit(e)}>
@@ -129,9 +143,10 @@ class AddFolder extends React.Component {
                 <ValidationError hasError={!this.state.nameValid} message={this.state.validationMessages.name} />
 
                 <label htmlFor="folder-id">enter folder id</label>
-                <input name="folder-id" type="number" ref={this.numberInput} onChange={e => this.updateId(e.target.value)}></input>
+                <input name="folder-id" type="text" ref={this.numberInput} onChange={e => this.updateId(e.target.value)}></input>
                 <ValidationError hasError={!this.state.idValid} message={this.state.validationMessages.id} />
-                <button type="submit">Submit</button>
+                <button disabled={!this.state.formValid} type="submit">Submit</button>
+                {this.state.yourFlag ? <p id="error-render" class="error">Please enter Folder Name and ID correctly.</p> : null}
             
             </form>
             

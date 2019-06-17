@@ -5,6 +5,7 @@ import NoteContext from '../NoteContext';
 import NotePageError from '../NotePageError'
 import { findNote } from '../notes-helpers'
 import propTypes from 'prop-types'
+import URLError from '../URLError'
 
 export default class NotePageMain extends React.Component {
 
@@ -23,12 +24,17 @@ export default class NotePageMain extends React.Component {
 
   render() {
     const { noteId } = this.props.match.params;
-    //content being undefined is causing problems.  Can't seem to get error boundary to work correctly.
     const note = findNote(this.context.notes, noteId)
+    console.log(note)
+
+    if (!note) {
+      const message='that note does not exist'
+      return <URLError message={message}/>
+    }
     return (
       
       <section className='NotePageMain'>
-        {/* <NotePageError> */}
+        <NotePageError>
         <Note
           id={note.id}
           name={note.name}
@@ -39,7 +45,7 @@ export default class NotePageMain extends React.Component {
             <p key={i}>{para}</p>
           )}
         </div>
-        {/* </NotePageError> */}
+        </NotePageError>
       </section>
     )
   }
