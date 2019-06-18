@@ -7,9 +7,7 @@ import NoteContext from '../NoteContext'
 import propTypes from 'prop-types'
 
 
-
 class Note extends React.Component {
-
   static defaultProps = {
     note: {
       content: '',

@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Note from '../Note/Note'
 import CircleButton from '../CircleButton/CircleButton'
 import './NoteListMain.css'
-import { getNotesForFolder } from '../notes-helpers'
+import { getNotesForFolder, findFolder } from '../notes-helpers'
 import NoteContext from '../NoteContext';
 import propTypes from 'prop-types'
 import URLError from '../URLError'
@@ -24,16 +24,17 @@ export default class NoteListMain extends React.Component {
     const { notes, folders } = this.context
     const {folderId} = this.props.match.params;
     const notesForFolder = getNotesForFolder(notes, folderId)
-    if (folderId !== folders.find(folder => folder.id === folderId)) {
-     
-      console.log(folderId)
+    const newFolder = findFolder(folders, folderId)
+
+    //why did this logic not work? I also tried putting ! around the whole condition.
+    // if (folderId !== folders.find(folder => folder.id === folderId)) 
+    
+//Homepage has an undefined folderId
+    if (!newFolder && folderId !== undefined) {
       const message='This folder does not exist'
       return <URLError message={message}/>
     } 
-    // else {
-    //   console.log('false')
-    // }
-    
+
   return (
     <section className='NoteListMain'>
       <ul>
@@ -61,7 +62,7 @@ export default class NoteListMain extends React.Component {
       </div>
     </section>
   )
-}
+  }
 }
 
 NoteListMain.propTypes = {

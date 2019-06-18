@@ -5,3 +5,11 @@
 form > * {
     padding: 5px
 }
+
+button:hover {
+    background-color: lightblue
+}
+
+button:disabled:hover {
+    background-color: red;
+}

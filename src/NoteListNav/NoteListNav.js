@@ -7,9 +7,7 @@ import NoteContext from '../NoteContext'
 import './NoteListNav.css'
 
 export default class NoteListNav extends React.Component {
-
   static contextType = NoteContext
-  //what is happening with the way "Link" is functioning inre propTypes?
 
   render() {
   return (

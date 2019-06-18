@@ -9,30 +9,29 @@ import URLError from '../URLError'
 
 export default class NotePageMain extends React.Component {
 
-  static defaultProps = {
-    note: {
-    content: '',
-    id: '',
-    modified: ''
-  }, 
-  match: {
-    params: {}
-  }
-}
+    static defaultProps = {
+      note: {
+      content: '',
+      id: '',
+      modified: ''
+    }, 
+    match: {
+      params: {}
+      }
+    }
 
   static contextType = NoteContext
 
   render() {
     const { noteId } = this.props.match.params;
     const note = findNote(this.context.notes, noteId)
-    console.log(note)
 
     if (!note) {
-      const message='that note does not exist'
+      const message='That note does not exist.'
       return <URLError message={message}/>
     }
+
     return (
-      
       <section className='NotePageMain'>
         <NotePageError>
         <Note

@@ -3,7 +3,6 @@ import './AddNote.css'
 import NoteContext from '../NoteContext'
 import ValidationError from '../ValidationError'
 
-
 export default class AddNote extends React.Component {
     constructor(props) {
         super(props)
@@ -65,8 +64,13 @@ export default class AddNote extends React.Component {
             fieldErrors.name = 'Name must be at least 3 characters long';
             hasError = true;
           } else {
-            fieldErrors.name = '';
-            hasError = false;
+            if(!fieldValue.match(new RegExp(/^[a-zA-Z]+$/))) {
+              fieldErrors.name = 'Note name can only accept letters A-Z';
+              hasError = true;
+            } else {
+              fieldErrors.name = '';
+              hasError = false;
+            }
           }
         }
     
@@ -89,8 +93,13 @@ export default class AddNote extends React.Component {
             fieldErrors.id = 'ID must be at least 3 characters long';
             hasError = true;
           } else {
+            if (!fieldValue.match(new RegExp(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/))) {
+              fieldErrors.id = 'Note ID must contain at least one number and one letter';
+              hasError = true;
+            } else {
             fieldErrors.id = '';
             hasError = false;
+            }
           }
         }
     
@@ -100,7 +109,6 @@ export default class AddNote extends React.Component {
         }, this.formValid );
     }
 
-    //
     validateContent(fieldValue) {
         const fieldErrors = {...this.state.validationMessages};
         let hasError = false;
@@ -131,18 +139,13 @@ export default class AddNote extends React.Component {
     
         fieldValue = fieldValue.trim();
         if(fieldValue.length === 0) {
-          fieldErrors.modified = 'Content is required';
+          fieldErrors.modified = 'Please select a month, day, and year';
           hasError = true;
         } else {
-            //specific a date format
-          if (fieldValue.length < 3) {
-            fieldErrors.modified = 'Please input in the following format: sdadad';
-            hasError = true;
-          } else {
             fieldErrors.modified = '';
             hasError = false;
           }
-        }
+        
     
         this.setState({
           validationMessages: fieldErrors,
@@ -182,7 +185,6 @@ export default class AddNote extends React.Component {
             modified: this.modifiedInput.current.value,
             folderId: this.folderIdInput.current.value
         }
-
         this.postnote(note, this.context.handleAddNote)
     }
 
@@ -216,7 +218,7 @@ export default class AddNote extends React.Component {
                 <ValidationError hasError={!idValid} message={validationMessages.id} />
 
                 <label htmlFor="modified-id">enter date of modification</label>
-                <input name="modified-id" type="text" ref={this.modifiedInput}
+                <input required name="modified-id" type="date" ref={this.modifiedInput}
                     onChange={e => this.updateModified(e.target.value)}
                 ></input>
                 <ValidationError hasError={!modifiedValid} message={validationMessages.modified} />
@@ -225,10 +227,8 @@ export default class AddNote extends React.Component {
                 <select ref={this.folderIdInput}>
                     {folderChoices}
                 </select>
-                <button type="submit" disabled={!this.state.formValid}>Submit</button>
-            
-            </form>
-            
+                <button className="disabled" type="submit" disabled={!this.state.formValid}>Submit</button>
+            </form>  
         )
     }
 }

@@ -4,7 +4,6 @@ import NoteContext from '../NoteContext'
 import ValidationError from '../ValidationError'
 
 class AddFolder extends React.Component {
-  //do I need props here?
     constructor(props) {
         super(props)
         this.nameInput = React.createRef()
@@ -13,7 +12,7 @@ class AddFolder extends React.Component {
             formValid: false,
             nameValid: false,
             idValid: false,
-            yourFlag: false,
+            submitError: false,
             validationMessages: {
                 name: '',
                 id: ''
@@ -49,10 +48,11 @@ class AddFolder extends React.Component {
           if (fieldValue.length < 3) {
             fieldErrors.name = 'Name must be at least 3 characters long';
             hasError = true;
-          } else {
-            fieldErrors.name = '';
-            hasError = false;
-          }
+          }  else {
+              fieldErrors.name = '';
+              hasError = false;
+            }
+  
         }
     
         this.setState({
@@ -75,9 +75,14 @@ class AddFolder extends React.Component {
             fieldErrors.id = 'ID must be at least 3 characters long';
             hasError = true;
           } else {
+            if (!fieldValue.match(new RegExp(/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/))) {
+              fieldErrors.id = 'Folder ID must contain at least one number and one letter';
+              hasError = true;
+            } else {
             fieldErrors.id = '';
             hasError = false;
           }
+        } 
         }
     
         this.setState({
@@ -119,21 +124,15 @@ class AddFolder extends React.Component {
 
         if ((!folder.name && !folder.id) || (folder.name.length < 3 || folder.id.length < 3)) {
             this.setState({
-              yourFlag: true
+              submitError: true
               
             })
-            
         } else {
-          console.log(folder)
-
           this.postFolder(folder, this.context.handleAddFolder)
-        }
-        
+        }   
     }
 
     render() {
-
-
         return (
             
             <form onSubmit={e => this.handleSubmit(e)}>
@@ -146,10 +145,8 @@ class AddFolder extends React.Component {
                 <input name="folder-id" type="text" ref={this.numberInput} onChange={e => this.updateId(e.target.value)}></input>
                 <ValidationError hasError={!this.state.idValid} message={this.state.validationMessages.id} />
                 <button disabled={!this.state.formValid} type="submit">Submit</button>
-                {this.state.yourFlag ? <p id="error-render" class="error">Please enter Folder Name and ID correctly.</p> : null}
-            
-            </form>
-            
+                {this.state.submitError ? <p id="error-render" class="error">Please enter Folder Name and ID correctly.</p> : null}
+            </form>  
         )
     }
 }

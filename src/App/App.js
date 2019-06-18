@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, Switch} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import NoteListNav from '../NoteListNav/NoteListNav';
 import NotePageNav from '../NotePageNav/NotePageNav';
 import NoteListMain from '../NoteListMain/NoteListMain';
 import NotePageMain from '../NotePageMain/NotePageMain';
-// import {getNotesForFolder, findNote, findFolder} from '../notes-helpers';
 import NoteContext from '../NoteContext'
 import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
 import './App.css';
-import NotePageError from '../NotePageError';
+import PageNotFound from '../PageNotFound';
 
 class App extends Component {
     state = {
@@ -32,7 +31,6 @@ class App extends Component {
     }
     
     handleDeleteNote = noteId => {
-        console.log('delete')
         const newNotes = this.state.notes.filter(item => 
             noteId !== item.id)
 
@@ -52,8 +50,6 @@ class App extends Component {
     }
 
     handleAddNote = note => {
-        console.log('Note added:', note.name)
-        
         const newNotes = [...this.state.notes, note];
         this.setState({
             notes: newNotes
@@ -116,23 +112,19 @@ class App extends Component {
     renderMainRoutes() {
         return (
             <>
-                
+                <Switch>
                 {['/', '/folder/:folderId'].map(path => (
                     
                     <Route
                         exact key={path} path={path}
                         component={NoteListMain}        
                     />
-                    
                 ))}
-                
-                {/* <NotePageError> */}
+
                 <Route
                     path="/note/:noteId"
                     component={NotePageMain}
                 />
-                {/* </NotePageError> */}
-                
                 <Route 
                     path='/add-folder'
                     component={AddFolder}
@@ -141,6 +133,8 @@ class App extends Component {
                     path='/add-note'
                     component={AddNote}
                 />
+                <Route component={PageNotFound} />
+                </Switch>
 
             </>
         );

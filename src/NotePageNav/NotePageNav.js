@@ -41,8 +41,6 @@ export default class NotePageNav extends React.Component {
         </h3>
       )}
     </div>
-  )
-
- }
-
-}
+      )
+    }
+  }
