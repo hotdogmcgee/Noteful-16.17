@@ -9,6 +9,7 @@ import './NoteListNav.css'
 export default class NoteListNav extends React.Component {
   static contextType = NoteContext
 
+
   render() {
   return (
     <div className='NoteListNav'>
@@ -23,6 +24,7 @@ export default class NoteListNav extends React.Component {
                 {countNotesForFolder(this.context.notes, folder.id)}
               </span>
               {folder.name}
+              
             </NavLink>
           </li>
         )}
@@ -43,5 +45,6 @@ export default class NoteListNav extends React.Component {
     )
   }
 }
+
 
 
