@@ -53,3 +53,11 @@
   font-size: 14px;
   position: absolute;
 }
+
+.Note__dates-modified {
+  color: white
+}
+
+.Date {
+  color: lightgreen
+}
