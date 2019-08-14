@@ -21,6 +21,7 @@ export default class NoteListMain extends React.Component {
   static contextType = NoteContext
 
   render() {
+    //need state to update properly, new folders have an undefined id until reload
     const { notes, folders } = this.context
     const {folderId} = this.props.match.params;
     const notesForFolder = getNotesForFolder(notes, folderId)
@@ -42,8 +43,10 @@ export default class NoteListMain extends React.Component {
           <li key={note.id}>
             <Note
               id={note.id}
-              name={note.name}
+              note_name={note.note_name}
               modified={note.modified}
+              folder_id={note.folder_id}
+              content={note.content}
             />
           </li>
         )}

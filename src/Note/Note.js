@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import './Note.css'
 import NoteContext from '../NoteContext'
 import propTypes from 'prop-types'
+import config from '../config'
 
 
 class Note extends React.Component {
@@ -12,13 +13,14 @@ class Note extends React.Component {
     note: {
       content: '',
       id: '',
+      note_name: '',
+      folder_id: '',
       modified: ''
     }, 
   }
 
   deleteNote(noteId, callback) {
-    const noteENDPOINT = "http://localhost:9090/notes"
-    fetch(noteENDPOINT + `/${noteId}`, {
+    fetch(config.NOTES_API_ENDPOINT + `/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application-json'
@@ -50,7 +52,7 @@ class Note extends React.Component {
         <div className='Note'>
           <h2 className='Note__title'>
             <Link to={`/note/${this.props.id}`}>
-              {this.props.name}
+              {this.props.note_name}
             </Link>
           </h2>
           <button 

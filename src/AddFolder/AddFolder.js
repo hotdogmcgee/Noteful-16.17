@@ -2,6 +2,7 @@ import React from "react";
 import "./AddFolder.css";
 import NoteContext from "../NoteContext";
 import ValidationError from "../ValidationError";
+import config from '../config'
 
 class AddFolder extends React.Component {
   constructor(props) {
@@ -61,9 +62,8 @@ class AddFolder extends React.Component {
   }
 
   postFolder(folder, callback) {
-    const foldersENDPOINT = "http://localhost:9090/folders";
     //FOLDERS API FETCH
-    fetch(foldersENDPOINT, {
+    fetch(config.FOLDERS_API_ENDPOINT, {
       method: "POST",
       headers: {
         "content-type": "application/json"
@@ -84,24 +84,24 @@ class AddFolder extends React.Component {
   }
 
   handleSubmit(e) {
-    const randomId = function() {
-      return (
-        "_" +
-        Math.random()
-          .toString(36)
-          .substr(2, 9)
-      );
-    };
+    // const randomId = function() {
+    //   return (
+    //     "_" +
+    //     Math.random()
+    //       .toString(36)
+    //       .substr(2, 9)
+    //   );
+    // };
 
     e.preventDefault();
     const folder = {
-      name: this.nameInput.current.value,
-      id: randomId()
+      folder_name: this.nameInput.current.value,
+      // id: randomId()
     };
 
     if (
-      (!folder.name && !folder.id) ||
-      (folder.name.length < 3 || folder.id.length < 3)
+      (!folder.folder_name) ||
+      (folder.folder_name.length < 3)
     ) {
       this.setState({
         submitError: true

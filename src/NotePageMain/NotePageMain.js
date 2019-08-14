@@ -13,7 +13,8 @@ export default class NotePageMain extends React.Component {
       note: {
       content: '',
       id: '',
-      modified: ''
+      modified: '',
+      folder_id: ''
     }, 
     match: {
       params: {}
@@ -36,8 +37,10 @@ export default class NotePageMain extends React.Component {
         <NotePageError>
         <Note
           id={note.id}
-          name={note.name}
+          note_name={note.note_name}
           modified={note.modified}
+          folder_id={note.folder_id}
+          content={note.content}
         />
         <div className='NotePageMain__content'>
           {note.content.split(/\n \r|\n/).map((para, i) =>

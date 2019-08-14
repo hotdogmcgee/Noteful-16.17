@@ -2,6 +2,7 @@ import React from "react";
 import "./AddNote.css";
 import NoteContext from "../NoteContext";
 import ValidationError from "../ValidationError";
+import config from '../config'
 
 export default class AddNote extends React.Component {
   constructor(props) {
@@ -133,9 +134,8 @@ export default class AddNote extends React.Component {
   }
 
   postnote(note, callback) {
-    const notesENDPOINT = "http://localhost:9090/notes";
     //notes API FETCH
-    fetch(notesENDPOINT, {
+    fetch(config.NOTES_API_ENDPOINT, {
       method: "POST",
       headers: {
         "content-type": "application/json"
@@ -156,21 +156,21 @@ export default class AddNote extends React.Component {
   }
 
   handleSubmit(e) {
-    const randomId = function() {
-      return (
-        "_" +
-        Math.random()
-          .toString(36)
-          .substr(2, 9)
-      );
-    };
+    // const randomId = function() {
+    //   return (
+    //     "_" +
+    //     Math.random()
+    //       .toString(36)
+    //       .substr(2, 9)
+    //   );
+    // };
     e.preventDefault();
     const note = {
-      name: this.nameInput.current.value,
+      //id created by db
+      note_name: this.nameInput.current.value,
       content: this.contentInput.current.value,
-      id: randomId(),
       modified: this.modifiedInput.current.value,
-      folderId: this.folderIdInput.current.value
+      folder_id: this.folderIdInput.current.value
     };
     this.postnote(note, this.context.handleAddNote);
   }
@@ -185,7 +185,7 @@ export default class AddNote extends React.Component {
     const { folders } = this.context;
     const folderChoices = folders.map((item, key) => (
       <option key={key} value={item.id}>
-        {item.name}
+        {item.folder_name}
       </option>
     ));
     return (

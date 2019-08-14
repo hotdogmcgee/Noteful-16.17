@@ -10,6 +10,7 @@ import AddFolder from '../AddFolder/AddFolder'
 import AddNote from '../AddNote/AddNote'
 import './App.css';
 import PageNotFound from '../PageNotFound';
+import config from '../config'
 
 class App extends Component {
     state = {
@@ -41,7 +42,7 @@ class App extends Component {
     }
 
     handleAddFolder = folder => {
-        console.log('Folder added:', folder.name)
+        console.log('Folder added:', folder.folder_name)
         
         const newFolders = [...this.state.folders, folder];
         this.setState({
@@ -57,11 +58,11 @@ class App extends Component {
     }
 
     componentDidMount() {
-        const foldersENDPOINT = "http://localhost:9090/folders"
-        const notesENDPOINT = "http://localhost:9090/notes"
+        // const foldersENDPOINT = "http://localhost:9090/folders"
+        // const notesENDPOINT = "http://localhost:9090/notes"
 
         //FOLDERS API FETCH
-        fetch(foldersENDPOINT, {
+        fetch(config.FOLDERS_API_ENDPOINT, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json'
@@ -77,7 +78,7 @@ class App extends Component {
         .catch(error => this.setState({ error }))
 
         // NOTES API FETCH
-        fetch(notesENDPOINT, {
+        fetch(config.NOTES_API_ENDPOINT, {
             method: 'GET',
             headers: {
                 'content-type': 'application/json'

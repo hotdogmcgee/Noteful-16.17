@@ -1,0 +1,6 @@
+[0814/093444.493:ERROR:file_io.cc(89)] ReadExactly: expected 504, observed 0
+[0814/093444.494:ERROR:crash_report_database_win.cc(445)] failed to read records
+[0814/134637.919:ERROR:file_io.cc(89)] ReadExactly: expected 504, observed 0
+[0814/134637.920:ERROR:crash_report_database_win.cc(445)] failed to read records
+[0814/185619.974:ERROR:file_io.cc(89)] ReadExactly: expected 504, observed 0
+[0814/185619.975:ERROR:crash_report_database_win.cc(445)] failed to read records
