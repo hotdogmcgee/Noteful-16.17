@@ -38,6 +38,7 @@ class App extends Component {
         this.setState({
             notes: newNotes
         })
+        console.log('delete note ran');
         
     }
 
@@ -51,10 +52,12 @@ class App extends Component {
     }
 
     handleAddNote = note => {
+        console.log('handle statement');
         const newNotes = [...this.state.notes, note];
         this.setState({
             notes: newNotes
         })
+        console.log('note added');
     }
 
     componentDidMount() {

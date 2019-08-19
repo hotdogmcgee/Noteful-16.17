@@ -26,13 +26,15 @@ class Note extends React.Component {
         'content-type': 'application-json'
       }
     })
+    //again having trouble with this block, why is it throwing error, uneexpected end of JSON input?
     .then(res => {
       if (!res.ok) {
         return res.json().then(error => {
           throw error
         })
       }
-      return res.json()
+      //necessary?
+      // return res.json()
     })
     .then(data => {
       this.props.history.push('/')

@@ -19,7 +19,7 @@ export default class AddNote extends React.Component {
       validationMessages: {
         name: "",
         content: "",
-        id: "",
+        // id: "",
         modified: ""
       }
     };
@@ -133,6 +133,41 @@ export default class AddNote extends React.Component {
     );
   }
 
+  handleSubmit = e => {
+    e.preventDefault()
+    // get the form fields from the event
+    const note = {
+      // id: randomId(),
+      note_name: this.nameInput.current.value,
+      content: this.contentInput.current.value,
+      modified: this.modifiedInput.current.value,
+      folder_id: this.folderIdInput.current.value
+    };
+    this.setState({ error: null })
+    // fetch(config.NOTES_API_ENDPOINT, {
+    //   method: 'POST',
+    //   body: JSON.stringify(note),
+    //   headers: {
+    //     'content-type': 'application/json'
+    //   }
+    // })
+    //   .then(res => {
+    //     if (!res.ok) {
+    //       return res.json().then(error => Promise.reject(error))
+    //     }
+    //     return res.json()
+    //   })
+    //   .then(data => {
+    //     this.context.handleAddNote(data)
+    //     this.props.history.push('/')
+    //   })
+    //   .catch(error => {
+    //     console.error(error)
+    //     this.setState({ error })
+      // })
+      this.postnote(note, this.context.handleAddNote)
+  }
+
   postnote(note, callback) {
     //notes API FETCH
     fetch(config.NOTES_API_ENDPOINT, {
@@ -149,31 +184,37 @@ export default class AddNote extends React.Component {
         return res.json();
       })
       .then(data => {
+        callback(data);
         this.props.history.push("/");
-        callback(note);
       })
       .catch(error => console.log(error));
   }
 
-  handleSubmit(e) {
-    // const randomId = function() {
-    //   return (
-    //     "_" +
-    //     Math.random()
-    //       .toString(36)
-    //       .substr(2, 9)
-    //   );
-    // };
-    e.preventDefault();
-    const note = {
-      //id created by db
-      note_name: this.nameInput.current.value,
-      content: this.contentInput.current.value,
-      modified: this.modifiedInput.current.value,
-      folder_id: this.folderIdInput.current.value
-    };
-    this.postnote(note, this.context.handleAddNote);
-  }
+  // handleSubmit(e) {
+  //   //should i let db make id????
+
+
+  //   // const randomId = function() {
+  //   //   return (
+  //   //     "_" +
+  //   //     Math.random()
+  //   //       .toString(36)
+  //   //       .substr(2, 9)
+  //   //   );
+  //   // };
+  //   e.preventDefault();
+  //   const note = {
+  //     // id: randomId(),
+  //     note_name: this.nameInput.current.value,
+  //     content: this.contentInput.current.value,
+  //     modified: this.modifiedInput.current.value,
+  //     folder_id: this.folderIdInput.current.value
+  //   };
+  //   console.log(note);
+  //   console.log('before postnote');
+  //   this.postnote(note, this.context.handleAddNote);
+  //   console.log('handle submit done');
+  // }
 
   render() {
     const {

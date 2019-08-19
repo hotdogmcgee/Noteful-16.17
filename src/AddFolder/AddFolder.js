@@ -77,8 +77,8 @@ class AddFolder extends React.Component {
         return res.json();
       })
       .then(data => {
+        callback(data);
         this.props.history.push("/");
-        callback(folder);
       })
       .catch(error => console.log(error));
   }

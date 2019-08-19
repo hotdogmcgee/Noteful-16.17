@@ -24,6 +24,7 @@ export default class NotePageMain extends React.Component {
   static contextType = NoteContext
 
   render() {
+    debugger
     const { noteId } = this.props.match.params;
     const note = findNote(this.context.notes, noteId)
 
