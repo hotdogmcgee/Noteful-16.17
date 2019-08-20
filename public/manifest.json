@@ -1,4 +1,7 @@
 {
+  "app": {
+    
+  },
   "short_name": "Noteful",
   "name": "Noteful Client",
   "icons": [
