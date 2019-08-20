@@ -37,14 +37,10 @@ class App extends Component {
 
         this.setState({
             notes: newNotes
-        })
-        console.log('delete note ran');
-        
+        })  
     }
 
     handleAddFolder = folder => {
-        console.log('Folder added:', folder.folder_name)
-        
         const newFolders = [...this.state.folders, folder];
         this.setState({
             folders: newFolders
@@ -52,12 +48,10 @@ class App extends Component {
     }
 
     handleAddNote = note => {
-        console.log('handle statement');
         const newNotes = [...this.state.notes, note];
         this.setState({
             notes: newNotes
         })
-        console.log('note added');
     }
 
     componentDidMount() {

@@ -84,19 +84,10 @@ class AddFolder extends React.Component {
   }
 
   handleSubmit(e) {
-    // const randomId = function() {
-    //   return (
-    //     "_" +
-    //     Math.random()
-    //       .toString(36)
-    //       .substr(2, 9)
-    //   );
-    // };
 
     e.preventDefault();
     const folder = {
       folder_name: this.nameInput.current.value,
-      // id: randomId()
     };
 
     if (
