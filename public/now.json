@@ -1,7 +1,8 @@
 {
     "version": 2,
-    "alias": "[kevinrobinsondeveloper]-noteful-app",
     "name": "noteful-app",
+    "alias": "kevinrobinsondeveloper-noteful-app",
+    
     "routes": [
         {
           "src": "^/static/(.*)",
