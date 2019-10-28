@@ -1,4 +1,4 @@
 # Noteful Client
 
-[Live Link]: https://noteful-app-mrq0kgqfk.now.sh/
+[Live Link](https://noteful-app-mrq0kgqfk.now.sh/)
 
